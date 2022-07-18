@@ -99,3 +99,35 @@ public:
         }
     }
 };
+
+class filehandlingmodule
+{
+public:
+    string username1, password1;
+    bool log_in(string username, string password)
+    {
+        ifstream fileread;
+        fileread.open("login.txt");
+        while (fileread >> username1 >> password1) // may be some error
+        {
+            if (username == username1 && password == password1)
+            {
+                cout << endl
+                     << "                 Account Login Successful..." << endl;
+            }
+        }
+        cout << endl
+             << "                 Account Login Failed..." << endl;
+        return false;
+    }
+
+    void createaccount(string username, string password)
+    {
+        ofstream filewrite;
+        filewrite.open("login.txt", ios::app);
+        filewrite << username << " " << password << "\n";
+        filewrite.close();
+        cout << endl
+             << "                 Account Created ..." << endl;
+    }
+};
