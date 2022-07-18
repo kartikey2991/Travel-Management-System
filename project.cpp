@@ -68,3 +68,34 @@ public:
         }
     }
 };
+
+class bellmanfordalgorithm : public datamodule
+{
+public:
+    int N, i, j, k;
+    bellmanfordalgorithm()
+    {
+        N = 15;
+    }
+
+    void algorithm_implementation()
+    {
+        // 3 diff loops executed
+
+        for (i = 0; i < N; i++)
+        {
+            for (j = 0; j < N; j++)
+            {
+                for (k = 0; k < N; k++)
+                {
+                    if (travel[i].cost[j] > travel[i].cost[k] + travel[k].cost[j])
+                    {
+                        // if low fair is found for the same origin and dest. , the minimum possible fare is changed
+                        travel[i].cost[j] = travel[i].cost[k] + travel[k].cost[j];
+                        travel[i].array[j] = k;
+                    }
+                }
+            }
+        }
+    }
+};
