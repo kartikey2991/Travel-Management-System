@@ -130,4 +130,100 @@ public:
         cout << endl
              << "                 Account Created ..." << endl;
     }
+
+    void ticket(string username, string firstname[], string lastname[], string sex[], int age[], int no)
+    {
+        ofstream filewrite;
+        filewrite.open("ticket.txt", ios::app);
+        for (int i = 0; i < no; i++)
+        {
+            filewrite << username << " " << firstname[i] << " " << lastname[i] << " " << sex[i] << " " << age[i] << "\n";
+        }
+        filewrite.close();
+    }
+};
+
+class inputmodule
+{
+public:
+    string source, destination;
+    string username, password;
+
+    void user_input(string userchoice[])
+    {
+        system("CLS"); // is used to make the screen/terminal clear
+        cout << "\n\n                                             ****************************        Welcome to Travel Management System       **************************" << endl;
+        cout << endl;
+        cout << "                 *****************************************" << endl;
+        cout << "                 Enter Your City:";
+        cin >> source;
+        cout << "                 *****************************************" << endl;
+        cout << "                 Enter Your Destination:";
+        cin >> destination;
+        cout << "                 *****************************************" << endl;
+        userchoice[0] = source;
+        userchoice[1] = destination;
+    }
+    string login()
+    {
+        while (1)
+        {
+            cout << "\n\n                                             ****************************        Welcome to Travel Management System       **************************" << endl;
+            cout << "\n\n\n\n";
+            cout << "                 ENTER                     " << endl;
+            cout << "                 *****************************************" << endl;
+            cout << "                 ****   1. To Login                  *****" << endl;
+            cout << "                 *****************************************" << endl;
+            cout << "                 ****   2. To Create New Account     ****" << endl;
+            cout << "                 *****************************************" << endl;
+            cout << "\n                 Enter Your Choice:";
+
+            int ch;
+            bool res;
+
+            filehandlingmodule fobj;
+            cin >> ch;
+            switch (ch)
+            {
+            case 1:
+                system("CLS");
+                cout << "\n\n                                             ****************************        Welcome to Travel Management System       **************************" << endl;
+                cout << endl;
+                cout << "                 *****************************************" << endl;
+                cout << "                 Enter Username:";
+                cin >> username;
+                cout << "                 *****************************************" << endl;
+                cout << "                 Enter Your Password:";
+                cin >> password;
+                cout << "                 *****************************************" << endl;
+                res = fobj.log_in(username, password);
+                break;
+            case 2:
+                system("CLS");
+                cout << "\n\n                                             ****************************        Welcome to Travel Management System       **************************" << endl;
+                cout << endl;
+                cout << "                 *****************************************" << endl;
+                cout << "                 Enter Username:";
+                cin >> username;
+                cout << "                 *****************************************" << endl;
+                cout << "                 Enter Your Password:";
+                cin >> password;
+                cout << "                 *****************************************" << endl;
+                fobj.createaccount(username, password);
+                break;
+            }
+
+            if (res == true)
+                return username;
+        }
+    }
+
+    int noofpassenger()
+    {
+        int no;
+        cout << endl
+             << "                 Enter the no of passengers:";
+        cin >> no;
+        return no;
+    }
 };
