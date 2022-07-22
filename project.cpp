@@ -227,3 +227,115 @@ public:
         return no;
     }
 };
+
+class outputmodule
+{
+public:
+    string source, destination;
+    void initial()
+    {
+        system("CLS");
+        cout << "\n\n                                             ****************************        Welcome to Travel Management System       **************************" << endl;
+        cout << "\n\n";
+        cout << "                 ***************************" << endl;
+        cout << "                 *  Facilities Available:  *" << endl;
+        cout << "                 ***************************" << endl;
+        cout << "\n\n";
+        cout << "                 ENTER                     " << endl;
+        cout << "                 *****************************************" << endl;
+        cout << "                 ****   1. To Display List of Cities  ****" << endl;
+        cout << "                 *****************************************" << endl;
+        cout << "                 ****   2. To Book Ticket             ****" << endl;
+        cout << "                 *****************************************" << endl;
+    }
+
+    void list_cities(int N)
+    {
+        datamodule o;
+        cout << endl;
+        system("CLS");
+        cout << "\n\n                                             ****************************        Welcome to Travel Management System       **************************" << endl;
+        cout << "\n\n";
+        cout << "                 The listed cities are:" << endl;
+        cout << "                 *****************************************" << endl;
+        for (int i = 0; i < N; i++)
+        {
+            cout << "                 *          " << o.city[i] << "            " << endl;
+            cout << "                 *" << endl;
+        }
+        cout << "                 *****************************************" << endl;
+    }
+    void ticket(int total_price, int no, string source, string destination, string username)
+    {
+        system("CLS");
+        cout << "\n\n                                     ****************************       E-TICKET       **************************" << endl;
+        cout << endl
+             << "                                     This Ticket is issued for :" << username << endl;
+        cout << endl
+             << "                                     Source:" << source << endl;
+        cout << endl
+             << "                                     Destination:" << destination << endl;
+        cout << endl
+             << "                                     Total No of Passengers:" << no << endl;
+        cout << endl
+             << "                                     Total Cost:" << total_price << endl;
+        cout << "\n\n                                     ****************************************************************************" << endl;
+    }
+
+    void passengerdetailedticket(int no, string firstname[], string lastname[], string sex[], int age[])
+    {
+        for (int i = 0; i < no; i++)
+        {
+            cout << "                                     Passenger " << (i + 1) << " Details:" << endl
+                 << endl;
+            cout << "                                     First Name: " << firstname[i] << endl;
+            cout << "                                     Last Name: " << lastname[i] << endl;
+            cout << "                                     Sex: " << sex[i] << endl;
+            cout << "                                     Age: " << age[i] << endl;
+            cout << "\n\n                                     ****************************************************************************" << endl;
+        }
+        int ch;
+        cout << endl
+             << "                                     Enter 1 to continue:";
+        cin >> ch;
+        if (ch == 1)
+        {
+            initial();
+        }
+    }
+
+    int display_price(string source, string destination, int N, string username)
+    {
+        source = source;
+        destination = destination;
+        datamodule o;
+        inputmodule in;
+
+        int i, j, choiceofpassenger;
+        for (i = 0; i < N; i++)
+        {
+            for (j = 0; j < N; j++)
+            {
+                if (source == o.city[i] && destination == o.city[i])
+                {
+                    cout << endl;
+                    if (ini[i].cost == infinity)
+                    {
+                        cout << "                 There is no direct flight from " << source << " to " << destination << ". So, Travel via other cities is only possible." << endl;
+                        cout << "                 The Price is:" << travel[i].cost[j] << endl
+                             << endl;
+                        cout << "					The Route is:" << source;
+                        int c1 = i, c2 = j;
+                        while (c1 != c2)
+                        {
+                            cout << "-->" << o.city[travel[c1].array[j]];
+                            c1 = travel[c1].array[j];
+                        }
+                        cout << endl
+                             << endl; // to be checked
+                    }
+                }
+            }
+        }
+    }
+};
