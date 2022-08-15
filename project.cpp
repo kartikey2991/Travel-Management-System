@@ -78,7 +78,7 @@ public:
         N = 15;
     }
 
-    void algorithm_implementation()
+    void algorithmic_implementation()
     {
         // 3 diff loops executed
 
@@ -114,6 +114,7 @@ public:
             {
                 cout << endl
                      << "                 Account Login Successful..." << endl;
+                return true;
             }
         }
         cout << endl
@@ -316,10 +317,10 @@ public:
         {
             for (j = 0; j < N; j++)
             {
-                if (source == o.city[i] && destination == o.city[i])
+                if (source == o.city[i] && destination == o.city[j])
                 {
                     cout << endl;
-                    if (ini[i].cost == infinity)
+                    if (ini[i].cost[j] == infinity)
                     {
                         cout << "                 There is no direct flight from " << source << " to " << destination << ". So, Travel via other cities is only possible." << endl;
                         cout << "                 The Price is:" << travel[i].cost[j] << endl
@@ -332,10 +333,178 @@ public:
                             c1 = travel[c1].array[j];
                         }
                         cout << endl
-                             << endl; // to be checked
+                             << endl;
                     }
+                    else if ((ini[i].cost[j] != infinity) && (ini[i].cost[j] == travel[i].cost[j]))
+                    {
+                        cout << "                 There is direct flight available from " << source << " to " << destination << " . And,it is cheapest among all other paths..." << endl;
+                        cout << "                 The Price is:" << travel[i].cost[j] << endl;
+                    }
+                    else if ((ini[i].cost[j] != infinity) && (ini[i].cost[j] > travel[i].cost[j]))
+                    {
+                        cout << "                 There is direct flight available from " << source << " to " << destination << " ." << endl;
+                        cout << "                 The Price is:" << ini[i].cost[j] << endl
+                             << endl;
+                        cout << "                 *****************************************" << endl
+                             << endl;
+                        cout << "                 You can go via other cities that will cost you less than direct flight." << endl;
+                        cout << "                 The Price is:" << travel[i].cost[j] << endl
+                             << endl;
+                        cout << "					The Route is:" << source;
+                        int c1 = i, c2 = j;
+                        while (c1 != c2)
+                        {
+                            cout << "-->" << o.city[travel[c1].array[j]];
+                            c1 = travel[c1].array[j];
+                        }
+                        cout << endl
+                             << endl;
+                        cout << "                 Press 1 to go by direct flight and Press 2 to go via other cities: ";
+                        cin >> choiceofpassenger;
+                    }
+                    char c;
+                    cout << endl;
+                    cout << "                 Do You want to Continue(Y/N)?";
+                    cin >> c;
+                    if (c == 'Y')
+                    {
+                        int no = in.noofpassenger();
+                        string firstname[no], lastname[no], sex[no];
+                        int age[no];
+                        for (int i = 0; i < no; i++)
+                        {
+                            cout << endl;
+                            cout << "                 *****************************************" << endl;
+                            cout << "                 Passenger " << (i + 1) << ":" << endl
+                                 << endl;
+                            cout << "                 First Name:";
+                            cin >> firstname[i];
+                            cout << endl
+                                 << "                 Last Name:";
+                            cin >> lastname[i];
+                            cout << endl
+                                 << "                 Sex(Male/Female/Other):";
+                            cin >> sex[i];
+                            cout << endl
+                                 << "                 Age:";
+                            cin >> age[i];
+                        }
+                        int total_price;
+                        if (choiceofpassenger == 1)
+                        {
+                            total_price = no * ini[i].cost[j];
+                        }
+                        else
+                        {
+                            total_price = no * travel[i].cost[j];
+                        }
+                        cout << endl
+                             << "                 The total Price is:" << total_price << endl;
+                        char y;
+                        cout << "                 Do You want to confirm Your Ticket(Y/N)?";
+                        cin >> y;
+                        if (y == 'Y')
+                        {
+                            filehandlingmodule f;
+                            f.ticket(username, firstname, lastname, sex, age, no);
+                            ticket(total_price, no, source, destination, username);
+                            passengerdetailedticket(no, firstname, lastname, sex, age);
+                        }
+                        else
+                        {
+                            cout << endl
+                                 << "                 Thank You For choosing Us...";
+                            cout << endl
+                                 << "                 Do You Want to Continue(Y/N)?";
+                            char ch;
+                            cin >> ch;
+                            if (ch == 'Y')
+                            {
+                                initial();
+                            }
+                            return 0;
+                        }
+                    }
+                    else
+                    {
+                        cout << endl
+                             << "                 Thank You For choosing Us...";
+                        cout << endl
+                             << "                 Do You Want to Continue(Y/N)?";
+                        char ch;
+                        cin >> ch;
+                        if (ch == 'Y')
+                        {
+                            initial();
+                        }
+                    }
+                    return 0;
                 }
             }
         }
+        cout << "                 Sorry, There are no flights available connecting the cities..." << endl;
+        cout << endl
+             << "                 Do You Want to Continue(Y/N)?";
+        char ch;
+        cin >> ch;
+        if (ch == 'Y')
+        {
+            initial();
+        }
+        return 0;
     }
 };
+
+int main()
+{
+    int N;
+    N = 15;
+
+    // Creating object for datamodule class
+
+    datamodule obj;
+    obj.costdeclaration();
+
+    // Creating object for bellmanfordalgorithm class
+
+    bellmanfordalgorithm ob;
+    ob.algorithmic_implementation();
+
+    string userchoice[2];
+
+    // Creating object for inputmodule class
+    inputmodule obj1;
+
+    string username;
+    username = obj1.login();
+    // Creating object for outputmodule
+    outputmodule object;
+
+    object.initial();
+
+    while (1)
+    {
+        int choice;
+        cout << "\n                 Enter Your Choice:";
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            object.list_cities(N);
+            cout << "\n\n                 Press 1 to Continue...";
+            int cont;
+            cin >> cont;
+            if (cont == 1)
+            {
+                object.initial();
+            }
+            break;
+        case 2:
+            obj1.user_input(userchoice);
+            // passing user inputted source and destination to display_price function of outputmodule
+            object.display_price(userchoice[0], userchoice[1], N, username);
+            break;
+        }
+    }
+    return 0;
+}
