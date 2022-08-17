@@ -97,6 +97,26 @@ public:
                 }
             }
         }
+        // for (int i = 0; i < 15; i++)
+        // {
+        //     for (int j = 0; j < 15; j++)
+        //     {
+        //         cout << travel[i].cost[j] << " ";
+        //     }
+        //     cout << endl;
+        // }
+
+        // cout << " ***************************************************" << endl;
+        // cout << " ***************************************************" << endl;
+
+        // for (int i = 0; i < 15; i++)
+        // {
+        //     for (int j = 0; j < 15; j++)
+        //     {
+        //         cout << ini[i].cost[j] << " ";
+        //     }`
+        //     cout << endl;
+        // }
     }
 };
 
@@ -106,8 +126,8 @@ public:
     string username1, password1;
     bool log_in(string username, string password)
     {
-        ifstream fileread;
-        fileread.open("login.txt");
+        ifstream fileread;                         // Login.txt jisme saare username aur password store honge unko read krega
+        fileread.open("login.txt");                // login.txt open
         while (fileread >> username1 >> password1) // may be some error
         {
             if (username == username1 && password == password1)
@@ -126,7 +146,7 @@ public:
     {
         ofstream filewrite;
         filewrite.open("login.txt", ios::app);
-        filewrite << username << " " << password << "\n";
+        filewrite << username << " " << password << "\n"; // file write because we have to write new username and password in login.txt
         filewrite.close();
         cout << endl
              << "                 Account Created ..." << endl;
@@ -182,7 +202,7 @@ public:
             int ch;
             bool res;
 
-            filehandlingmodule fobj;
+            filehandlingmodule fobj; // creating file handling object
             cin >> ch;
             switch (ch)
             {
@@ -252,7 +272,7 @@ public:
 
     void list_cities(int N)
     {
-        datamodule o;
+        datamodule o; // creating object from data module
         cout << endl;
         system("CLS");
         cout << "\n\n                                             ****************************        Welcome to Travel Management System       **************************" << endl;
@@ -266,7 +286,7 @@ public:
         }
         cout << "                 *****************************************" << endl;
     }
-    void ticket(int total_price, int no, string source, string destination, string username)
+    void ticket(int total_price, int no, string source, string destination, string username) // printing the ticket
     {
         system("CLS");
         cout << "\n\n                                     ****************************       E-TICKET       **************************" << endl;
@@ -364,7 +384,7 @@ public:
                     }
                     char c;
                     cout << endl;
-                    cout << "                 Do You want to Continue(Y/N)?";
+                    cout << "                 Do You want to Continue(Y/N)?"; // for finally printing the ticket
                     cin >> c;
                     if (c == 'Y')
                     {
@@ -390,14 +410,15 @@ public:
                             cin >> age[i];
                         }
                         int total_price;
-                        if (choiceofpassenger == 1)
-                        {
-                            total_price = no * ini[i].cost[j];
-                        }
-                        else
-                        {
-                            total_price = no * travel[i].cost[j];
-                        }
+                        // if (choiceofpassenger == 1)
+                        // {
+                        //     total_price = no * ini[i].cost[j]; // multiplying the no of passengers from initial cost provided
+                        // }
+                        // else
+                        // {
+                        //     total_price = no * travel[i].cost[j]; // multiplying the no of passengers from minimum cost.
+                        // }
+                        total_price = no * travel[i].cost[j]; // multiplying the no of passengers from minimum cost.
                         cout << endl
                              << "                 The total Price is:" << total_price << endl;
                         char y;
